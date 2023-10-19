@@ -19,7 +19,7 @@ spec:
       persistentVolumeClaim:
         claimName: stackrox-db
   egress:
-    connectivityPolicy: Online
+    connectivityPolicy: Online #Offline=Disconnected 모드
   scanner:
     analyzer:
       scaling:
