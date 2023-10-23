@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: roxctl-offline
+  namespace: stackrox
+spec:
+  template:
+    spec:
+      containers:
+      - name: roxctl
+        image: quay.io/bjeon1/roxctl-offline:micro
+        envFrom:
+        - secretRef:
+            name: acs-password
+        command: ["bash"]  
+        args:
+        - -c
+        - ./roxctl scanner upload-db --insecure-skip-tls-verify=true -p "$password"  -e "central.stackrox.svc.cluster.local" --scanner-db-file=scanner-vuln-updates.zip
+        - ./roxctl collector support-packages upload support-pkg-2.6.0-latest.zip --insecure-skip-tls-verify=true -p "$password" -e "central.stackrox.svc.cluster.local"
+      restartPolicy: Never
