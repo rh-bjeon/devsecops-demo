@@ -97,3 +97,10 @@
   until: result.status == 200
   retries: 15
   delay: 20
+
+# 추가
+- name: ACS Disconnected 
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'acs-offline-job.yml.j2') }}"
+  
