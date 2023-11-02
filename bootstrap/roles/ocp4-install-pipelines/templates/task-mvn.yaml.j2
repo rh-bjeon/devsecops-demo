@@ -12,7 +12,7 @@ metadata:
 spec:
   description: This Task can be used to run a Maven build.
   params:
-    - default: gcr.io/cloud-builders/mvn:3.5.0-jdk-8
+    - default: "{{ registry_addr['gcr'] }}/cloud-builders/mvn:3.5.0-jdk-8"
       description: Maven base image
       name: MAVEN_IMAGE
       type: string
@@ -55,7 +55,7 @@ spec:
     - description: The workspace consisting of the custom maven settings provided by the user.
       name: maven-settings
   steps:
-    - image: 'registry.access.redhat.com/ubi8/ubi-minimal:latest'
+    - image: "{{ registry_addr['registry_redhat_access'] }}/ubi8/ubi-minimal:latest"
       name: mvn-settings
       resources: {}
       script: >
