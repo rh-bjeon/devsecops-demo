@@ -120,7 +120,7 @@ spec:
       - -DaltSnapshotDeploymentRepository=nexus::default::http://nexus:8081/repository/maven-snapshots/
   - name: build-image
     taskRef:
-      name: s2i-java-11
+      name: s2i-java
     runAfter:
     - release-app
     params:
@@ -130,10 +130,10 @@ spec:
         value: http://nexus:8081/repository/maven-public/
       - name: PATH_CONTEXT
         value: spring-petclinic/target
+      - name: VERSION
+        value: 11
       - name: IMAGE_NAME
-        value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/spring-petclinic
-      - name: IMAGE_TAG
-        value: $(params.APP_IMAGE_TAG)
+        value: image-registry.openshift-image-registry.svc:5000/$(context.pipelineRun.namespace)/spring-petclinic:$(params.APP_IMAGE_TAG)
     workspaces:
     - name: source
       workspace: workspace
