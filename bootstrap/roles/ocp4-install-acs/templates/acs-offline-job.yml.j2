@@ -1,11 +1,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: roxctl-offline
+  name: roxctl-offline-job
   namespace: stackrox
 spec:
   template:
+    metadata:
+      name: roxctl-offline-data
     spec:
+      restartPolicy: Never
       containers:
       - name: roxctl
         image: "{{ registry_addr['quay'] }}/bjeon1/roxctl-offline:micro"
