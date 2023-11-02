@@ -19,7 +19,7 @@ spec:
       persistentVolumeClaim:
         claimName: stackrox-db
   egress:
-    connectivityPolicy: {{ acs_connectivity }}
+    connectivityPolicy: "{{ acs_connectivity }}"
   scanner:
     analyzer:
       scaling:
