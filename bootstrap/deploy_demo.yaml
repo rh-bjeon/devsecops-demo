@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - /vars/demo_vars.yaml
+    - vars/demo_vars.yaml
   tasks:
     - name: 'Install Gitops'
       include_role:
