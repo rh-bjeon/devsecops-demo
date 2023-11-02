@@ -1,0 +1,7 @@
+registry_addr: 
+  quay: quay.io
+  k8s_gcr: k8s.gcr.io
+  gcr: gcr.io
+  registry_redhat_io: registry.redhat.io
+  registry_redhat_access: registry.access.redhat.com
+acs_connectivity: Offline
