@@ -16,3 +16,7 @@ registry_addr:
   gcr: gcr.io
   registry_redhat_io: registry.redhat.io
   registry_redhat_access: registry.access.redhat.com
+
+gogs_user: gogs
+gogs_pwd: gogs
+
