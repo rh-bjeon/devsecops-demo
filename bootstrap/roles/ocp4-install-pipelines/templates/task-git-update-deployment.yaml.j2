@@ -36,14 +36,14 @@ spec:
 
   steps:
     - name: git-clone
-      image: quay.io/rcarrata/git:v2.26.2
+      image: "{{ registry_addr['quay'] }}/rcarrata/git:v2.26.2"
       workingDir: $(workspaces.workspace.path)
       script: |
         rm -rf git-update-digest-workdir
         git clone $(params.GIT_REPOSITORY) git-update-digest-workdir
 
     - name: update-digest
-      image: k8s.gcr.io/kustomize/kustomize:v3.8.7
+      image: "{{ registry_addr['k8s_gcr'] }}/kustomize/kustomize:v3.8.7"
       workingDir: $(workspaces.workspace.path)
       script: |
         cd git-update-digest-workdir/$(params.KUSTOMIZATION_PATH)
@@ -55,7 +55,7 @@ spec:
         cat kustomization.yaml
 
     - name: git-commit
-      image: quay.io/rcarrata/git:v2.26.2
+      image: "{{ registry_addr['quay'] }}/rcarrata/git:v2.26.2"
       workingDir: $(workspaces.workspace.path)
       script: |
         cd git-update-digest-workdir
