@@ -5,4 +5,8 @@ registry_addr:
   gcr: *my_regi
   registry_redhat_io: *my_regi
   registry_redhat_access: *my_regi
+
 acs_connectivity: Offline
+
+#gogs_user: gogs
+#gogs_pwd: gogs
