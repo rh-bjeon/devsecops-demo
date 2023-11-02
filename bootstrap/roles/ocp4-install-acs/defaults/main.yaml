@@ -1,3 +1,6 @@
+registry_addr:
+  quay: quay.io
+acs_connectivity: Online
 
 stackrox_central_admin_password: stackrox
 ocp4_demo_pipeline_namespace: cicd
