@@ -34,7 +34,7 @@ spec:
           name: argocd-env-secret  # used for authentication (username/password or auth token)
   steps:
     - name: login-sync-wait
-      image: quay.io/rcarrata/argocd:$(params.argocd-version)
+      image: "{{ registry_addr['quay'] }}/rcarrata/argocd:$(params.argocd-version)"
       script: |
         if [ -z $ARGOCD_AUTH_TOKEN ]; then
           yes | argocd login $ARGOCD_SERVER --username=$ARGOCD_USERNAME --password=$ARGOCD_PASSWORD ;
