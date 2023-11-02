@@ -22,7 +22,7 @@ spec:
               fieldPath: metadata.namespace
     steps:
       - name: init-gogs
-        image: quay.io/siamaksade/python-oc
+        image: "{{ registry_addr['quay'] }}/siamaksade/python-oc"
         script: |
           #!/usr/bin/env python3
 
