@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: uploader
-        image: quay.io/chmouel/go-simple-uploader:latest
+        image: "{{ registry_addr['quay'] }}/chmouel/go-simple-uploader:latest"
         imagePullPolicy: IfNotPresent
         env:
           - name: UPLOADER_PORT
@@ -33,7 +33,7 @@ spec:
         volumeMounts:
         - mountPath: /fileuploads
           name: staticfiles
-      - image: quay.io/siamaksade/nginx:latest
+      - image: "{{ registry_addr['quay'] }}/siamaksade/nginx:latest"
         name: nginx
         ports:
         - containerPort: 8080
