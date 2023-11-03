@@ -116,17 +116,29 @@
 # Clone source to repo
 - name: clone source code to git repo spring-petclinic
   ansible.builtin.shell: | 
+    git init
+    git add .
+    git config --global user.name "me"
+    git config --global user.email "me@example.com"
+    git commit -m "for disconnected"
+    git remote add origin https://github.com/rcarrata/spring-petclinic
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic
     git push -u gogs master
   args:
-    chdir: spring-petclinic
+    chdir: roles/ocp4-install-pipelines/git/spring-petclinic
 
 - name: clone source code to git repo spring-petclinic-config
   ansible.builtin.shell: | 
+    git init
+    git add .
+    git config --global user.name "me"
+    git config --global user.email "me@example.com"
+    git commit -m "for disconnected"
+    git remote add origin https://github.com/rcarrata/spring-petclinic
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic-config
     git push -u gogs master
   args:
-    chdir: spring-petclinic-config
+    chdir: roles/ocp4-install-pipelines/git/spring-petclinic-config
 
 - name: configure webhook on spring-petclinic
   ansible.builtin.uri:
