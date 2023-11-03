@@ -19,4 +19,5 @@ registry_addr:
 
 gogs_user: gogs
 gogs_pwd: gogs
+gogs_init: true
 
