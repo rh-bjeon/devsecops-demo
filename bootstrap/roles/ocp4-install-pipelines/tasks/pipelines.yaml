@@ -109,14 +109,15 @@
     force_basic_auth: true
     follow_redirects: "yes"
 
-- name: create git repo spring-petclinic
+# Clone source to repo
+- name: clone source code to git repo spring-petclinic
   ansible.builtin.shell: | 
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic
     git push -u gogs master
   args:
     chdir: spring-petclinic
 
-- name: create git repo spring-petclinic
+- name: clone source code to git repo spring-petclinic-config
   ansible.builtin.shell: | 
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic-config
     git push -u gogs master
@@ -143,6 +144,3 @@
     follow_redirects: "yes"
     return_content: true
     status_code: [200, 201]
-
-
-    http://{{ r_gogs_route.resources[0].spec.host }}/gogs/spring-petclinic
