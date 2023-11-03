@@ -8,5 +8,6 @@ registry_addr:
 
 acs_connectivity: Offline
 
-#gogs_user: gogs
-#gogs_pwd: gogs
+gogs_user: gogs
+gogs_pwd: gogs
+gogs_init: true
