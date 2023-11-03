@@ -42,6 +42,18 @@
   debug:
     msg: "{{ r_gogs_route.resources[0].spec.host }}"
 
+- name: Get gogs webhook route
+  kubernetes.core.k8s_info:
+    kind: Route
+    api_version: route.openshift.io/v1
+    namespace: cicd
+    name: el-webhook
+  register: r_gogs_webhook_route
+  retries: 10
+  delay: 20
+  until:
+    - r_gogs_webhook_route.resources[0].spec.host is defined
+
 - name: Create OpenShift Objects for Openshift Pipelines Templates
   k8s:
     state: present
@@ -51,4 +63,86 @@
   - ./templates/pipeline-build-stage.yaml.j2
   - ./templates/pipeline-build-pvc.yaml.j2
 
-# gog에 gogs/gogs로 pet-clinic과 pet-clinic-config 레포 미리 업로드
+# Create gogs admin
+- name: Ansible URI used for first user registration
+  when: gogs_init
+  ansible.builtin.uri:
+    url: http://gogs-cicd.apps.dis-cluster.sandbox601.opentlc.com/user/sign_up
+    method: POST
+    body_format: json
+    body:
+      username: "{{ gogs_user }}"
+      email: admin@gogs.com
+      password: "{{ gogs_pwd }}"
+      retype: "{{ gogs_pwd }}"
+    return_content: true
+    status_code: 200
+    force_basic_auth: true
+    follow_redirects: "yes"
+
+# Create gogs repos
+- name: Create repo - spring-petclinic
+  ansible.builtin.uri:
+    url: http://{{ r_gogs_route.resources[0].spec.host }}/api/v1/user/repos
+    method: POST
+    user: "{{ gogs_user }}"
+    password: "{{ gogs_pwd }}"
+    body_format: json
+    body:
+      name: spring-petclinic
+    return_content: true
+    status_code: 201
+    force_basic_auth: true
+    follow_redirects: "yes"
+
+- name: Create repo - spring-petclinic-config
+  ansible.builtin.uri:
+    url: http://{{ r_gogs_route.resources[0].spec.host }}/api/v1/user/repos
+    method: POST
+    user: "{{ gogs_user }}"
+    password: "{{ gogs_pwd }}"
+    body_format: json
+    body:
+      name: spring-petclinic-config
+    return_content: true
+    status_code: 201
+    force_basic_auth: true
+    follow_redirects: "yes"
+
+- name: create git repo spring-petclinic
+  ansible.builtin.shell: | 
+    git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic
+    git push -u gogs master
+  args:
+    chdir: spring-petclinic
+
+- name: create git repo spring-petclinic
+  ansible.builtin.shell: | 
+    git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic-config
+    git push -u gogs master
+  args:
+    chdir: spring-petclinic-config
+
+- name: configure webhook on spring-petclinic
+  ansible.builtin.uri:
+    url: http://{{ r_gogs_route.resources[0].spec.host }}/api/v1/repos/{{ gogs_user }}/spring-petclinic/hooks
+    headers:
+      Content-Type: application/json
+    body_format: json
+    method: POST
+    user: "{{ gogs_user }}"
+    password: "{{ gogs_pwd }}"
+    body:
+      type: gogs
+      config: 
+        url: http://el-webhook-cicd.apps.dis-cluster.sandbox601.opentlc.com
+        content_type: json
+      events: [push]
+      active: true
+    force_basic_auth: true
+    follow_redirects: "yes"
+    return_content: true
+    status_code: [200, 201]
+
+
+    http://{{ r_gogs_route.resources[0].spec.host }}/gogs/spring-petclinic
