@@ -67,7 +67,7 @@
 - name: Ansible URI used for first user registration
   when: gogs_init
   ansible.builtin.uri:
-    url: http://gogs-cicd.apps.dis-cluster.sandbox601.opentlc.com/user/sign_up
+    url: http://{{ r_gogs_route.resources[0].spec.host }}/user/sign_up
     method: POST
     body_format: json
     body:
@@ -135,7 +135,7 @@
     body:
       type: gogs
       config: 
-        url: http://el-webhook-cicd.apps.dis-cluster.sandbox601.opentlc.com
+        url: http://{{ r_gogs_webhook_route.resources[0].spec.host }}
         content_type: json
       events: [push]
       active: true
