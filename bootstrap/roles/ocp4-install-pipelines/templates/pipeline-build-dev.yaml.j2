@@ -28,7 +28,7 @@ spec:
     - name: APP_TESTS_GIT
       type: string
       description: The application test cases git repository
-      default: https://{{ r_gogs_route.resources[0].spec.host }}/rcarrata/spring-petclinic-gatling
+      default: http://{{ r_gogs_route.resources[0].spec.host }}/gogs/spring-petclinic-gatling
   workspaces:
   - name: workspace
   - name: maven-settings
