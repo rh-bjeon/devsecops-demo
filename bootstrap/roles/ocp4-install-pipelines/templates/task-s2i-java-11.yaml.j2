@@ -107,7 +107,7 @@ spec:
         - '$(params.IMAGE_NAME):latest'
         - .
       image: >-
-        registry.redhat.io/rhel8/buildah@sha256:180c4d9849b6ab0e5465d30d4f3a77765cf0d852ca1cb1efb59d6e8c9f90d467
+        registry.redhat.io/rhel8/buildah@sha256:55f5c7d88c77e1ab5a2ab8e877172b2b66cb196e21f10dc45148470d0ee8bbae
       name: build
       resources: {}
       securityContext:
@@ -130,7 +130,7 @@ spec:
         - '$(params.IMAGE_NAME):$(params.IMAGE_TAG)'
         - 'docker://$(params.IMAGE_NAME):$(params.IMAGE_TAG)'
       image: >-
-        registry.redhat.io/rhel8/buildah@sha256:180c4d9849b6ab0e5465d30d4f3a77765cf0d852ca1cb1efb59d6e8c9f90d467
+        registry.redhat.io/rhel8/buildah@sha256:55f5c7d88c77e1ab5a2ab8e877172b2b66cb196e21f10dc45148470d0ee8bbae
       name: push-tag
       resources: {}
       securityContext:
@@ -150,7 +150,7 @@ spec:
         - '$(params.IMAGE_NAME):$(params.IMAGE_TAG)'
         - 'docker://$(params.IMAGE_NAME):latest'
       image: >-
-        registry.redhat.io/rhel8/buildah@sha256:180c4d9849b6ab0e5465d30d4f3a77765cf0d852ca1cb1efb59d6e8c9f90d467
+        registry.redhat.io/rhel8/buildah@sha256:55f5c7d88c77e1ab5a2ab8e877172b2b66cb196e21f10dc45148470d0ee8bbae
       name: push-latest
       resources: {}
       securityContext:
@@ -161,7 +161,7 @@ spec:
         - mountPath: /var/lib/containers
           name: varlibcontainers
     - image: >-
-        registry.redhat.io/rhel8/buildah@sha256:180c4d9849b6ab0e5465d30d4f3a77765cf0d852ca1cb1efb59d6e8c9f90d467
+        registry.redhat.io/rhel8/buildah@sha256:55f5c7d88c77e1ab5a2ab8e877172b2b66cb196e21f10dc45148470d0ee8bbae
       name: digest-to-results
       resources: {}
       script: >-
