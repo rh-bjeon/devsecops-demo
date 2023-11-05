@@ -23,7 +23,8 @@ spec:
       containers:
       - name: spring-petclinic
         imagePullPolicy: Always
-        image: quay.io/siamaksade/spring-petclinic:latest
+        image: "{{ registry_addr['gcr'] }}/siamaksade/spring-petclinic:latest"
+          params:
         livenessProbe:
           failureThreshold: 3
           httpGet:
