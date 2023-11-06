@@ -141,6 +141,11 @@
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic
 
+- name: template - git repo spring-petclinic-config
+  ansible.builtin.template:
+    src: ./templates/petclinic-config-deployment.yaml.j2
+    dest: ./git/spring-petclinic-config/app/deployment.yaml
+
 - name: clone source code to git repo spring-petclinic-config
   ansible.builtin.shell: | 
     git init
