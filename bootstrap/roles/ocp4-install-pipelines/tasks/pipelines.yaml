@@ -151,8 +151,8 @@
     src: roles/ocp4-install-pipelines/templates/petclinic-config-deployment.yaml.j2
     dest: roles/ocp4-install-pipelines/git/spring-petclinic-config/app/deployment.yaml
 
-# Clone source to repo
-- name: clone source code to git repo spring-petclinic
+# git init - spring-petclinic
+- name: if no git config exists, git init repo spring-petclinic
   ansible.builtin.shell: | 
     git init
     git add .
@@ -160,12 +160,21 @@
     git config --global user.email "me@example.com"
     git remote add origin https://github.com/rcarrata/spring-petclinic
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic
-    git commit -m "for disconnected"
+  args:
+    chdir: roles/ocp4-install-pipelines/git/spring-petclinic
+  when: "'roles/ocp4-install-pipelines/git/spring-petclinic/.git' is not link_exists"
+
+- name: clone source code to git repo spring-petclinic
+  ansible.builtin.shell: | 
+    git commit -m "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic
+  when: "'roles/ocp4-install-pipelines/git/spring-petclinic/.git' is link_exists"
+#####
 
-- name: clone source code to git repo spring-petclinic-config
+# git init - spring-petclinic-config
+- name: if no git config exists, git init repo spring-petclinic-config
   ansible.builtin.shell: | 
     git init
     git add .
@@ -173,12 +182,21 @@
     git config --global user.email "me@example.com"
     git remote add origin https://github.com/rcarrata/spring-petclinic-config
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic-config
-    git commit -m "for disconnected"
+  args:
+    chdir: roles/ocp4-install-pipelines/git/spring-petclinic-config
+  when: "'roles/ocp4-install-pipelines/git/spring-petclinic-config/.git' is not link_exists"
+
+- name: clone source code to git repo spring-petclinic-config
+  ansible.builtin.shell: | 
+    git commit -m "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-config
+  when: "'roles/ocp4-install-pipelines/git/spring-petclinic-config/.git' is link_exists"
+######
 
-- name: clone source code to git repo spring-petclinic-gatling
+# git init - spring-petclinic-gatling
+- name: if no git config exists, git init repo spring-petclinic-gatling
   ansible.builtin.shell: | 
     git init
     git add .
@@ -186,10 +204,18 @@
     git config --global user.email "me@example.com"
     git remote add origin https://github.com/rcarrata/spring-petclinic-gatling
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic-gatling
-    git commit -m "for disconnected"
+  args:
+    chdir: roles/ocp4-install-pipelines/git/spring-petclinic-gatling
+  when: "'roles/ocp4-install-pipelines/git/spring-petclinic-gatling/.git' is not link_exists"
+
+- name: clone source code to git repo spring-petclinic-gatling
+  ansible.builtin.shell: | 
+    git commit -m "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-gatling
+  when: "'roles/ocp4-install-pipelines/git/spring-petclinic-gatling/.git' is link_exists"
+#####
 
 - name: configure webhook on spring-petclinic
   ansible.builtin.uri:
