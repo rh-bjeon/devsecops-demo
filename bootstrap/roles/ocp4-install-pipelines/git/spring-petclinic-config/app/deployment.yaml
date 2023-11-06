@@ -24,7 +24,6 @@ spec:
       - name: spring-petclinic
         imagePullPolicy: Always
         image: "{{ registry_addr['gcr'] }}/siamaksade/spring-petclinic:latest"
-          params:
         livenessProbe:
           failureThreshold: 3
           httpGet:
