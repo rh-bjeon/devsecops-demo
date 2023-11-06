@@ -84,6 +84,19 @@
     force_basic_auth: true
     follow_redirects: "yes"
 
+# Check if gogs repos exists
+  - name: Check repos
+    ansible.builtin.uri:
+      url: http://gogs-cicd.apps.dis-cluster.sandbox601.opentlc.com/api/v1/user/repos
+      method: GET
+      user: gogs
+      password: gogs
+      body_format: json
+      status_code: 200
+      force_basic_auth: true
+      follow_redirects: "yes"
+    register: gogs_repos
+
 # Create gogs repos
 - name: Create repo - spring-petclinic
   ansible.builtin.uri:
@@ -98,6 +111,8 @@
     status_code: 201
     force_basic_auth: true
     follow_redirects: "yes"
+  when: "'spring-petclinic' not in gogs_repos['json'] | selectattr('name', 'defined') | map(attribute='name')"
+
 
 - name: Create repo - spring-petclinic-config
   ansible.builtin.uri:
@@ -112,6 +127,7 @@
     status_code: 201
     force_basic_auth: true
     follow_redirects: "yes"
+  when: "'spring-petclinic-config' not in gogs_repos['json'] | selectattr('name', 'defined') | map(attribute='name')"
 
 - name: Create repo - spring-petclinic-gatling
   ansible.builtin.uri:
@@ -126,6 +142,13 @@
     status_code: 201
     force_basic_auth: true
     follow_redirects: "yes"
+  when: "'spring-petclinic-gatling' not in gogs_repos['json'] | selectattr('name', 'defined') | map(attribute='name')"
+
+# template git source
+- name: template - git repo spring-petclinic-config
+  ansible.builtin.template:
+    src: roles/ocp4-install-pipelines/templates/petclinic-config-deployment.yaml.j2
+    dest: roles/ocp4-install-pipelines/git/spring-petclinic-config/app/deployment.yaml
 
 # Clone source to repo
 - name: clone source code to git repo spring-petclinic
@@ -140,11 +163,6 @@
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic
-
-- name: template - git repo spring-petclinic-config
-  ansible.builtin.template:
-    src: roles/ocp4-install-pipelines/templates/petclinic-config-deployment.yaml.j2
-    dest: roles/ocp4-install-pipelines/git/spring-petclinic-config/app/deployment.yaml
 
 - name: clone source code to git repo spring-petclinic-config
   ansible.builtin.shell: | 
