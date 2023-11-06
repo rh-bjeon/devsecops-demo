@@ -113,6 +113,20 @@
     force_basic_auth: true
     follow_redirects: "yes"
 
+- name: Create repo - spring-petclinic-gatling
+  ansible.builtin.uri:
+    url: http://{{ r_gogs_route.resources[0].spec.host }}/api/v1/user/repos
+    method: POST
+    user: "{{ gogs_user }}"
+    password: "{{ gogs_pwd }}"
+    body_format: json
+    body:
+      name: spring-petclinic-gatling
+    return_content: true
+    status_code: 201
+    force_basic_auth: true
+    follow_redirects: "yes"
+
 # Clone source to repo
 - name: clone source code to git repo spring-petclinic
   ansible.builtin.shell: | 
