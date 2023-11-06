@@ -87,15 +87,16 @@
 # Check if gogs repos exists
 - name: Check repos
   ansible.builtin.uri:
-    url: http://gogs-cicd.apps.dis-cluster.sandbox601.opentlc.com/api/v1/user/repos
+    url: http://{{ r_gogs_route.resources[0].spec.host }}/api/v1/user/repos
     method: GET
-    user: gogs
-    password: gogs
+    user: "{{ gogs_user }}"
+    password: "{{ gogs_pwd }}"
     body_format: json
     status_code: 200
     force_basic_auth: true
     follow_redirects: "yes"
   register: gogs_repos
+  ignore_errors: true
 
 # Create gogs repos
 - name: Create repo - spring-petclinic
