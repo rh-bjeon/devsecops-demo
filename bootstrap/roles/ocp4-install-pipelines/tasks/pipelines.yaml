@@ -151,6 +151,23 @@
     src: roles/ocp4-install-pipelines/templates/petclinic-config-deployment.yaml.j2
     dest: roles/ocp4-install-pipelines/git/spring-petclinic-config/app/deployment.yaml
 
+######
+######
+- name: Get stats of the spring-petclinic - git config
+  ansible.builtin.stat:
+    path: roles/ocp4-install-pipelines/git/spring-petclinic/.git
+  register: git_spring_petclinic
+  
+- name: Get stats of the spring-petclinic-config - git config
+  ansible.builtin.stat:
+    path: roles/ocp4-install-pipelines/git/spring-petclinic-config/.git
+  register: git_spring_petclinic_config
+
+- name: Get stats of the spring-petclinic-gatling - git config
+  ansible.builtin.stat:
+    path: roles/ocp4-install-pipelines/git/spring-petclinic-gatling/.git
+  register: git_spring_petclinic_gatling
+
 # git init - spring-petclinic
 - name: if no git config exists, git init repo spring-petclinic
   ansible.builtin.shell: | 
@@ -162,7 +179,7 @@
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic
-  when: "'roles/ocp4-install-pipelines/git/spring-petclinic/.git' is not link_exists"
+  when: git_spring_petclinic.stat.islnk is not defined
 
 - name: clone source code to git repo spring-petclinic
   ansible.builtin.shell: | 
@@ -170,8 +187,9 @@
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic
+  when: git_spring_petclinic.stat.islnk is defined
+    
 #####
-
 # git init - spring-petclinic-config
 - name: if no git config exists, git init repo spring-petclinic-config
   ansible.builtin.shell: | 
@@ -183,7 +201,8 @@
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic-config
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-config
-  when: "'roles/ocp4-install-pipelines/git/spring-petclinic-config/.git' is not link_exists"
+  when: git_spring_petclinic_config.stat.islnk is not defined
+
 
 - name: clone source code to git repo spring-petclinic-config
   ansible.builtin.shell: | 
@@ -191,6 +210,7 @@
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-config
+  when: git_spring_petclinic_config.stat.islnk is defined
 ######
 
 # git init - spring-petclinic-gatling
@@ -204,7 +224,7 @@
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic-gatling
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-gatling
-  when: "'roles/ocp4-install-pipelines/git/spring-petclinic-gatling/.git' is not link_exists"
+  when: git_spring_petclinic_gatling.stat.islnk is not defined
 
 - name: clone source code to git repo spring-petclinic-gatling
   ansible.builtin.shell: | 
@@ -212,6 +232,7 @@
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-gatling
+  when: git_spring_petclinic_gatling.stat.islnk is defined
 #####
 
 - name: configure webhook on spring-petclinic
