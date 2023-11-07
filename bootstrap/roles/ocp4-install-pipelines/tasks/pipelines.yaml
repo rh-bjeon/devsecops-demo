@@ -156,8 +156,8 @@
   ansible.builtin.shell: | 
     git init
     git add .
-    git config --global user.name "me"
-    git config --global user.email "me@example.com"
+    git config user.name "devsecops"
+    git config user.email "devsecops@example.com"
     git remote add origin https://github.com/rcarrata/spring-petclinic
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic
   args:
@@ -178,8 +178,8 @@
   ansible.builtin.shell: | 
     git init
     git add .
-    git config --global user.name "me"
-    git config --global user.email "me@example.com"
+    git config user.name "devsecops"
+    git config user.email "devsecops@example.com"
     git remote add origin https://github.com/rcarrata/spring-petclinic-config
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic-config
   args:
@@ -200,8 +200,8 @@
   ansible.builtin.shell: | 
     git init
     git add .
-    git config --global user.name "me"
-    git config --global user.email "me@example.com"
+    git config user.name "devsecops"
+    git config user.email "devsecops@example.com"
     git remote add origin https://github.com/rcarrata/spring-petclinic-gatling
     git remote add gogs http://{{ gogs_user }}:{{ gogs_pwd }}@{{ r_gogs_route.resources[0].spec.host }}/{{ gogs_user }}/spring-petclinic-gatling
   args:
