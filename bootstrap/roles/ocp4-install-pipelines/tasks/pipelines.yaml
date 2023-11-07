@@ -166,7 +166,7 @@
 
 - name: clone source code to git repo spring-petclinic
   ansible.builtin.shell: | 
-    git commit --allow-empty -m "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
+    git commit --allow-empty -am "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic
@@ -188,7 +188,7 @@
 
 - name: clone source code to git repo spring-petclinic-config
   ansible.builtin.shell: | 
-    git commit --allow-empty -m "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
+    git commit --allow-empty -am "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-config
@@ -210,7 +210,7 @@
 
 - name: clone source code to git repo spring-petclinic-gatling
   ansible.builtin.shell: | 
-    git commit --allow-empty -m "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
+    git commit --allow-empty -am "{{ lookup('pipe', 'date +%Y-%m-%d.%H:%M:%S') }}"
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-gatling
