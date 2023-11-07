@@ -170,7 +170,6 @@
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic
-  when: "'roles/ocp4-install-pipelines/git/spring-petclinic/.git' is link_exists"
 #####
 
 # git init - spring-petclinic-config
@@ -192,7 +191,6 @@
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-config
-  when: "'roles/ocp4-install-pipelines/git/spring-petclinic-config/.git' is link_exists"
 ######
 
 # git init - spring-petclinic-gatling
@@ -214,7 +212,6 @@
     git push -u gogs master
   args:
     chdir: roles/ocp4-install-pipelines/git/spring-petclinic-gatling
-  when: "'roles/ocp4-install-pipelines/git/spring-petclinic-gatling/.git' is link_exists"
 #####
 
 - name: configure webhook on spring-petclinic
