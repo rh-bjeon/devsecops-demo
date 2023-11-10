@@ -130,7 +130,7 @@ spec:
       workingDir: $(workspaces.source.path)
     - name: archive-site
       workingDir: $(workspaces.source.path)
-      image: "{{ registry_addr['registry_redhat_access'] }}/ubi8/ubi:latest"
+      image: "{{ registry_addr['registry_redhat_access'] }}/ubi8/ubi:8.0"
       env:
         - name: PIPELINERUN_NAME
           valueFrom:
