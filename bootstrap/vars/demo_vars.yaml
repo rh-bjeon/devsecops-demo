@@ -7,15 +7,15 @@ registry_addr:
   registry_redhat_access: *my_regi
 
 #repo_name:
-  mirror: &my_repo MYREPO
-  bjeon1: *my_repo
-  rcarrata: *my_repo
-  cloud-builders: *my_repo
-  rhel8: *my_repo
-  siamaksade: *my_repo
-  chmouel: *my_repo
-  ubi8: *my_repo
-  kustomize: *my_repo
+#  mirror: &my_repo MYREPO
+#  rcarrata: *my_repo
+#  cloud-builders: *my_repo
+#  siamaksade: *my_repo
+#  chmouel: *my_repo
+#  kustomize: *my_repo
+#  bjeon1: *my_repo
+#  ubi8: *my_repo
+#  rhel8: *my_repo
 
 acs_connectivity: Offline
 
