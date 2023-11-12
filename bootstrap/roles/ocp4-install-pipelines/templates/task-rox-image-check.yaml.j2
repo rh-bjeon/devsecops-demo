@@ -33,7 +33,7 @@ spec:
             secretKeyRef:
               key: rox_central_endpoint
               name: $(params.rox_central_endpoint)
-      image: "{{ registry_addr['registry_redhat_access'] }}/ubi8/ubi-minimal:latest"
+      image: "{{ registry_addr['registry_redhat_access'] }}/{{ repo_name['ubi8'] }}/ubi-minimal:latest"
       name: rox-image-check
       resources: {}
       script: >-

@@ -27,7 +27,7 @@ spec:
   steps:
 
     - name: git-clone
-      image: "{{ registry_addr['quay'] }}/rcarrata/git:v2.26.2"
+      image: "{{ registry_addr['quay'] }}/{{ repo_name['rcarrata'] }}/git:v2.26.2"
       workingDir: $(workspaces.workspace.path)
       script: |
         rm -rf git-update-digest-workdir
@@ -35,7 +35,7 @@ spec:
         cd git-update-digest-workdir/$(params.deployment_files_path)
 
     - name: rox-deployment-check
-      image: "{{ registry_addr['registry_redhat_access'] }}/ubi8/ubi-minimal:latest"
+      image: "{{ registry_addr['registry_redhat_access'] }}/{{ repo_name['ubi8'] }}/ubi-minimal:latest"
       workingDir: $(workspaces.workspace.path)
       env:
         - name: ROX_API_TOKEN

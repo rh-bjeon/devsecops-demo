@@ -53,7 +53,7 @@ spec:
     - description: The workspace consisting of the custom maven settings provided by the user.
       name: maven-settings
   steps:
-    - image: "{{ registry_addr['registry_redhat_access'] }}/ubi8/ubi-minimal:latest"
+    - image: "{{ registry_addr['registry_redhat_access'] }}/{{ repo_name['ubi8'] }}/ubi-minimal:latest"
       name: mvn-settings
       resources: {}
       script: >
@@ -124,13 +124,13 @@ spec:
         - -DskipTests=true
       command:
         - /usr/bin/mvn
-      image: "{{ registry_addr['gcr'] }}/cloud-builders/mvn"
+      image: "{{ registry_addr['gcr'] }}/{{ repo_name['cloud-builders'] }}/mvn"
       name: mvn-goals
       resources: {}
       workingDir: $(workspaces.source.path)
     - name: archive-site
       workingDir: $(workspaces.source.path)
-      image: "{{ registry_addr['registry_redhat_access'] }}/ubi8/ubi:8.0"
+      image: "{{ registry_addr['registry_redhat_access'] }}/{{ repo_name['ubi8'] }}/ubi:8.0"
       env:
         - name: PIPELINERUN_NAME
           valueFrom:

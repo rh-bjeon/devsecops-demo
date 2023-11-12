@@ -11,7 +11,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: roxctl
-        image: "{{ registry_addr['quay'] }}/bjeon1/roxctl-offline:micro"
+        image: "{{ registry_addr['quay'] }}/{{ repo_name['bjeon1'] }}/roxctl-offline:micro"
         envFrom:
         - secretRef:
             name: acs-password

@@ -23,7 +23,7 @@ spec:
       containers:
       - name: spring-petclinic
         imagePullPolicy: Always
-        image: "{{ registry_addr['gcr'] }}/siamaksade/spring-petclinic:latest"
+        image: "{{ registry_addr['gcr'] }}/{{ repo_name['siamaksade'] }}/spring-petclinic:latest"
         livenessProbe:
           failureThreshold: 3
           httpGet:

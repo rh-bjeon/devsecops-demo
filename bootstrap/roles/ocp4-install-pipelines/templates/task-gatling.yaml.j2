@@ -30,7 +30,7 @@ spec:
     name: simulations
   steps:
     - name: run-tests
-      image: "{{ registry_addr['quay'] }}/siamaksade/gatling:latest"
+      image: "{{ registry_addr['quay'] }}/{{ repo_name['siamaksade'] }}/gatling:latest"
       env:
         - name: PIPELINERUN_NAME
           valueFrom:

@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: uploader
-        image: "{{ registry_addr['quay'] }}/chmouel/go-simple-uploader:latest"
+        image: "{{ registry_addr['quay'] }}/{{ repo_name['chmouel'] }}/go-simple-uploader:latest"
         imagePullPolicy: IfNotPresent
         env:
           - name: UPLOADER_PORT
@@ -33,7 +33,7 @@ spec:
         volumeMounts:
         - mountPath: /fileuploads
           name: staticfiles
-      - image: "{{ registry_addr['quay'] }}/siamaksade/nginx:latest"
+      - image: "{{ registry_addr['quay'] }}/{{ repo_name['siamaksade'] }}/nginx:latest"
         name: nginx
         ports:
         - containerPort: 8080
