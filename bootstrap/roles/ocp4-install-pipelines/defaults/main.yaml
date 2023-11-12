@@ -1,3 +1,19 @@
+registry_addr:
+  quay: quay.io
+  k8s_gcr: k8s.gcr.io
+  gcr: gcr.io
+  registry_redhat_access: registry.access.redhat.com
+repo_name:
+  rcarrata: rcarrata
+  cloud-builders: cloud-builders
+  siamaksade: siamaksade
+  ubi8: ubi8
+  kustomize: kustomize
+
+gogs_user: gogs
+gogs_pwd: gogs
+gogs_init: true
+
 pipelines_expected_crds:
 - pipelineresources.tekton.dev
 - pipelineruns.tekton.dev
@@ -9,14 +25,3 @@ gitops_expected_crds:
 - applicationsets.argoproj.io
 - appprojects.argoproj.io
 - argocds.argoproj.io
-
-registry_addr:
-  quay: quay.io
-  k8s_gcr: k8s.gcr.io
-  gcr: gcr.io
-  registry_redhat_io: registry.redhat.io
-  registry_redhat_access: registry.access.redhat.com
-
-gogs_user: gogs
-gogs_pwd: gogs
-gogs_init: true
