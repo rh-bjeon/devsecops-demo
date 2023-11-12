@@ -1,5 +1,7 @@
 registry_addr:
   quay: quay.io
+repo_name:
+  bjeon1: bjeon1
 acs_connectivity: Online
 
 stackrox_central_admin_password: stackrox
